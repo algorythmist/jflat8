@@ -9,8 +9,6 @@ import java.util.stream.Stream;
 
 public interface FlatFileReader<T> {
 
-	void skipHeader(boolean skip);
-
 	List<T> readToList(String resourceName) throws IOException;
 
 	List<T> readToList(InputStream is) throws IOException;
