@@ -15,7 +15,7 @@ public interface FlatFileReader<T> {
 
 	List<T> readToList(InputStream is) throws IOException;
 
-	Stream<T> readAsStream(Reader reader) throws IOException;
+	Stream<T> readToStream(Reader reader) throws IOException;
 
 	void readWithCallback(String resourceName, FlatFileReaderCallback<T> callback) throws IOException;
 

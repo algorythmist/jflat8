@@ -1,10 +1,15 @@
 package com.tecacet.jflat8;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
-public interface BeanMapper<T> extends Function<RowRecord, T>{
+/**
+ * Map a Record to a Java Bean of type T 
+ * 
+ * @author dimitri
+ *
+ * @param <T>
+ */
+@FunctionalInterface
+public interface BeanMapper<T> extends Function<RowRecord, T> {
 
-	BeanMapper<T> replaceBeanFactory(Supplier<T> beanFactory);
-	
 }
