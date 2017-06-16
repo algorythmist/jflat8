@@ -1,5 +1,7 @@
 package com.tecacet.jflat8;
 
+import java.util.function.BiConsumer;
+
 /**
  * Allows custom processing of mapped records 
  * 
@@ -7,7 +9,6 @@ package com.tecacet.jflat8;
  *
  * @param <T>
  */
-public interface FlatFileReaderCallback<T> {
-
-	void processRow(RowRecord row, T bean);
+public interface FlatFileReaderCallback<T> extends BiConsumer<RowRecord, T> {
+	
 }

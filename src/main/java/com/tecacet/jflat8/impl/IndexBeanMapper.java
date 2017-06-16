@@ -35,7 +35,7 @@ public class IndexBeanMapper<T> implements BeanMapper<T> {
 	public T apply(RowRecord record) {
 		T bean = beanFactory.get();
 
-		for (int i = 0; i < record.size(); i++) {
+		for (int i = 0; i < properties.length; i++) {
 			String property = properties[i];
 			if (property == null) {
 				continue;

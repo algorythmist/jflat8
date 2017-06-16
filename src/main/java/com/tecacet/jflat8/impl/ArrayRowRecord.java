@@ -1,5 +1,7 @@
 package com.tecacet.jflat8.impl;
 
+import java.util.Arrays;
+
 import com.tecacet.jflat8.RowRecord;
 
 public class ArrayRowRecord implements RowRecord {
@@ -31,6 +33,11 @@ public class ArrayRowRecord implements RowRecord {
 	@Override
 	public long getRowNumber() {
 		return lineNumber;
+	}
+	
+	@Override
+	public String toString() {
+		return Arrays.toString(tokens);
 	}
 
 }
