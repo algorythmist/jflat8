@@ -11,17 +11,18 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import com.tecacet.jflat8.BeanMapper;
+import com.tecacet.jflat8.CoreFlatFileReader;
 import com.tecacet.jflat8.FlatFileReaderCallback;
 import com.tecacet.jflat8.RowRecord;
 
-public class CSVBasedFlatFileReader<T> implements CoreFlatFileReader<T> {
+public class CSVBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	private final BeanMapper<T> beanMapper;
 	private final CSVFormat csvFormat;
 
 	private Predicate<T> beanPredicate;
 
-	public CSVBasedFlatFileReader(BeanMapper<T> beanMapper, CSVFormat csvFormat) {
+	public CSVBasedCoreFlatFileReader(BeanMapper<T> beanMapper, CSVFormat csvFormat) {
 		super();
 		this.beanMapper = beanMapper;
 		this.csvFormat = csvFormat;

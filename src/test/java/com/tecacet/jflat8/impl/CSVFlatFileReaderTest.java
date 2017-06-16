@@ -1,6 +1,7 @@
 package com.tecacet.jflat8.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,13 +12,12 @@ import org.apache.commons.csv.CSVFormat;
 import org.junit.Test;
 
 import com.tecacet.jflat8.BeanMapper;
+import com.tecacet.jflat8.FlatFileReader;
 import com.tecacet.jflat8.converters.LocalDateConverter;
 import com.tecacet.jflat8.objects.Movie;
 import com.tecacet.jflat8.util.ResourceLoader;
 
-import jodd.typeconverter.TypeConverterManager;
-
-public class CSVBasedFlatFileReaderTest {
+public class CSVFlatFileReaderTest {
 
 	private final ResourceLoader resourceLoader = new ResourceLoader();
 
@@ -25,18 +25,17 @@ public class CSVBasedFlatFileReaderTest {
 	public void testRead() throws IOException {
 
 		// TODO incorporate in framework
-		TypeConverterManager.register(LocalDate.class, Converters.fromFunction(new LocalDateConverter("dd-MMM-yyyy")));
-
-		// TODO incorporate in framework
-		CSVFormat csvFormat = CSVFormat.DEFAULT.withDelimiter('|');
+		CSVFormat csvFormat = CSVFormat.DEFAULT.withDelimiter('|').withCommentMarker('#');
 		BeanMapper<Movie> beanMapper = new IndexBeanMapper<>(Movie.class,
 				new String[] { "id", "name", "releaseDate", "videoReleaseDate", "imdbURL" });
 
-		CoreFlatFileReader<Movie> flatFileReader = new CSVBasedFlatFileReader<>(beanMapper, csvFormat);
+		FlatFileReader<Movie> flatFileReader = new CSVFlatFileReader<>(beanMapper, csvFormat);
+		flatFileReader.registerConverter(LocalDate.class, new LocalDateConverter("dd-MMM-yyyy"));
+
 		InputStream is = resourceLoader.loadResource("src/test/data/movies.txt");
-		List<Movie> movies = flatFileReader.read(is);
-		assertEquals(10, movies.size());
-		
+		List<Movie> movies = flatFileReader.readToList(is);
+		assertEquals(9, movies.size());
+
 		Movie movie = movies.get(3);
 		assertEquals(4, movie.getId());
 		assertEquals("Get Shorty (1995)", movie.getName());

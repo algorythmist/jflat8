@@ -8,11 +8,12 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import com.tecacet.jflat8.BeanMapper;
+import com.tecacet.jflat8.CoreFlatFileReader;
 import com.tecacet.jflat8.FlatFileReaderCallback;
 import com.tecacet.jflat8.LineMapper;
 import com.tecacet.jflat8.RowRecord;
 
-public class LineBasedFlatFileReader<T> implements CoreFlatFileReader<T> {
+public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	private final LineMapper lineMapper;
 	private final BeanMapper<T> beanMapper;
@@ -22,7 +23,7 @@ public class LineBasedFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	private int skipLines = 0;
 
-	public LineBasedFlatFileReader(LineMapper lineMapper, BeanMapper<T> beanMapper) {
+	public LineBasedCoreFlatFileReader(LineMapper lineMapper, BeanMapper<T> beanMapper) {
 		super();
 		this.lineMapper = lineMapper;
 		this.beanMapper = beanMapper;

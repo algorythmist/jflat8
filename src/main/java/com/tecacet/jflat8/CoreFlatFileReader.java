@@ -1,11 +1,9 @@
-package com.tecacet.jflat8.impl;
+package com.tecacet.jflat8;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tecacet.jflat8.FlatFileReaderCallback;
 
 public interface CoreFlatFileReader<T> {
 
@@ -25,7 +23,7 @@ public interface CoreFlatFileReader<T> {
 	 * @return
 	 * @throws IOException
 	 */
-	public default List<T> read(InputStream is) throws IOException {
+	public default List<T> readToList(InputStream is) throws IOException {
 		List<T> list = new ArrayList<>();
 		read(is, (record, bean) -> list.add(bean));
 		return list;
