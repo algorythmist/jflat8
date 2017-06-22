@@ -6,7 +6,9 @@ import static org.junit.Assert.assertNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.csv.CSVFormat;
 import org.junit.Test;
@@ -14,6 +16,7 @@ import org.junit.Test;
 import com.tecacet.jflat8.BeanMapper;
 import com.tecacet.jflat8.FlatFileReader;
 import com.tecacet.jflat8.converters.LocalDateConverter;
+import com.tecacet.jflat8.objects.ImmutableQuote;
 import com.tecacet.jflat8.objects.Movie;
 import com.tecacet.jflat8.util.ResourceLoader;
 
@@ -22,7 +25,7 @@ public class CSVFlatFileReaderTest {
 	private final ResourceLoader resourceLoader = new ResourceLoader();
 
 	@Test
-	public void testRead() throws IOException {
+	public void testReadByIndex() throws IOException {
 
 		// TODO incorporate in framework
 		CSVFormat csvFormat = CSVFormat.DEFAULT.withDelimiter('|').withCommentMarker('#');
@@ -42,6 +45,24 @@ public class CSVFlatFileReaderTest {
 		assertEquals(LocalDate.of(1995, 1, 1), movie.getReleaseDate());
 		assertNull(movie.getVideoReleaseDate());
 		assertEquals("http://us.imdb.com/M/title-exact?Get%20Shorty%20(1995)", movie.getImdbURL());
+	}
+	
+	@Test
+	public void testReadByHeader() throws IOException {
+		// TODO incorporate in framework
+		CSVFormat csvFormat = CSVFormat.DEFAULT.withFirstRecordAsHeader();
+		Map<String, String> properties = new HashMap<>();
+		properties.put("Date", "date");
+		properties.put("Open", "open");
+		properties.put("Volume", "volume");
+		BeanMapper<ImmutableQuote> beanMapper = new HeaderBeanMapper<>(ImmutableQuote.class, properties);
+		FlatFileReader<ImmutableQuote> csvReader = new CSVFlatFileReader<>(beanMapper, csvFormat);
+		List<ImmutableQuote> quotes = csvReader.readToList("GLD.csv");
+		assertEquals(134, quotes.size());
+		ImmutableQuote quote = quotes.get(0);
+		assertEquals(LocalDate.of(2015, 12, 1), quote.getDate());
+		assertEquals(102.30, quote.getOpen().doubleValue(), 0.001);
+		assertEquals(5800200L, quote.getVolume().longValue());
 	}
 
 }

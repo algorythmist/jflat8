@@ -10,4 +10,5 @@ public interface FlatFileReader<T> extends CoreFlatFileReader<T> {
 	
 	<C> void registerConverter(Class<C> toType, Function<String, C> converter);
 
+	
 }

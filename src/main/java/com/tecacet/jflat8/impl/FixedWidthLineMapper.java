@@ -15,7 +15,6 @@ public class FixedWidthLineMapper implements LineMapper {
 	private final int[] widths;
 	private final boolean trimWhitespace;
 	
-	
 	/**
 	 * 
 	 * @param widths

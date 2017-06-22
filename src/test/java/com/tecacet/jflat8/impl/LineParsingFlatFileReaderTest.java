@@ -14,17 +14,20 @@ import com.tecacet.jflat8.objects.Contact;
 import com.tecacet.jflat8.util.ResourceLoader;
 
 public class LineParsingFlatFileReaderTest {
-	
+
 	private final ResourceLoader resourceLoader = new ResourceLoader();
-	
+
 	@Test
 	public void testRead() throws IOException {
-		
+
 		BeanMapper<Contact> beanMapper = new IndexBeanMapper<>(Contact.class,
 				new String[] { "name", "state", "telephone" });
 		LineMapper lineMapper = new FixedWidthLineMapper(new int[] { 20, 10, 12 });
-		LineBasedCoreFlatFileReader<Contact> flatFileReader = new LineBasedCoreFlatFileReader<>(lineMapper, beanMapper);
-		flatFileReader.setSkipLines(1);
+		FlatFileFormat fileFormat = new FlatFileFormat();
+		fileFormat.skipLines(1);
+		LineBasedCoreFlatFileReader<Contact> flatFileReader = new LineBasedCoreFlatFileReader<>(lineMapper, beanMapper,
+				fileFormat);
+
 		InputStream is = resourceLoader.loadResource("src/test/data/directory.txt");
 		List<Contact> contacts = flatFileReader.readToList(is);
 		assertEquals(3, contacts.size());

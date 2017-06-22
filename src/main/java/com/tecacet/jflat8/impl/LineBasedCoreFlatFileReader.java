@@ -17,16 +17,18 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	private final LineMapper lineMapper;
 	private final BeanMapper<T> beanMapper;
+	private final FlatFileFormat fileFormat;
 
 	private BiPredicate<Long, String> linePredicate;
 	private Predicate<T> beanPredicate;
+	
 
-	private int skipLines = 0;
-
-	public LineBasedCoreFlatFileReader(LineMapper lineMapper, BeanMapper<T> beanMapper) {
+	public LineBasedCoreFlatFileReader(LineMapper lineMapper, BeanMapper<T> beanMapper,
+			FlatFileFormat fileFormat) {
 		super();
 		this.lineMapper = lineMapper;
 		this.beanMapper = beanMapper;
+		this.fileFormat = fileFormat;
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 		long lineNumber = 0;
 
 		while ((line = reader.readLine()) != null) {
-			if (lineNumber < skipLines) {
+			if (lineNumber < fileFormat.getSkipLines()) {
 				lineNumber++;
 				continue;
 			}
@@ -64,8 +66,10 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 		this.beanPredicate = beanPredicate;
 	}
 
-	public void setSkipLines(int skipLines) {
-		this.skipLines = skipLines;
+	@Override
+	public FlatFileFormat getFileFormat() {
+		return fileFormat;
 	}
 
+	
 }

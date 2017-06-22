@@ -1,0 +1,3 @@
+- Map properties by non-consequitive indexes in file
+- Abstract file format like CSVFormat
+- Normalize headers before lookup - lowercase, no spaces, no special chars
