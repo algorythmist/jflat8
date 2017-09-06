@@ -10,7 +10,6 @@ import java.util.function.Function;
 
 import com.tecacet.jflat8.ConverterRegistry;
 import com.tecacet.jflat8.CoreFlatFileReader;
-import com.tecacet.jflat8.FileFormat;
 import com.tecacet.jflat8.FlatFileReader;
 import com.tecacet.jflat8.FlatFileReaderCallback;
 import com.tecacet.jflat8.converters.LocalDateConverter;
@@ -42,10 +41,6 @@ public abstract class AbstractFlatFileReader<T> implements FlatFileReader<T>{
 	@Override
 	public <C> void registerConverter(Class<C> toType, Function<String, C> converter) {
 		converterRegistry.registerConverter(toType, converter);
-	}
-
-	public FileFormat getFileFormat() {
-		return coreFlatFileReader.getFileFormat();
 	}
 	
 	private void registerDefaultConverters() {

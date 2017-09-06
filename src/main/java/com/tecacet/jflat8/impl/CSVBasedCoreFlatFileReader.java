@@ -18,14 +18,14 @@ import com.tecacet.jflat8.RowRecord;
 public class CSVBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	private final BeanMapper<T> beanMapper;
-	private final CSVFileFormat csvFormat;
+	private final CSVFormat csvFormat;
 
 	private Predicate<T> beanPredicate;
 
 	public CSVBasedCoreFlatFileReader(BeanMapper<T> beanMapper, CSVFormat csvFormat) {
 		super();
 		this.beanMapper = beanMapper;
-		this.csvFormat = new CSVFileFormat(csvFormat);
+		this.csvFormat = csvFormat;
 	}
 
 	@Override
@@ -49,9 +49,4 @@ public class CSVBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 		this.beanPredicate = beanPredicate;
 	}
 
-	@Override
-	public CSVFileFormat getFileFormat() {
-		return csvFormat;
-	}
-	
 }

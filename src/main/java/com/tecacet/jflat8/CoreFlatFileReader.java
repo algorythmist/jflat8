@@ -17,12 +17,6 @@ public interface CoreFlatFileReader<T> {
 	void read(InputStream is, FlatFileReaderCallback<T> callback) throws IOException;
 	
 	/**
-	 * Get the format used by this reader.
-	 * @return
-	 */
-	FileFormat getFileFormat();
-	
-	/**
 	 * Read an input strem into a list
 	 * 
 	 * @param is

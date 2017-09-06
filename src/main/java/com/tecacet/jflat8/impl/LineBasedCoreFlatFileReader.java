@@ -65,11 +65,5 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 	public void setBeanPredicate(Predicate<T> beanPredicate) {
 		this.beanPredicate = beanPredicate;
 	}
-
-	@Override
-	public FlatFileFormat getFileFormat() {
-		return fileFormat;
-	}
-
 	
 }
