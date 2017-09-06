@@ -15,7 +15,8 @@ import com.tecacet.jflat8.CoreFlatFileReader;
 import com.tecacet.jflat8.FlatFileReaderCallback;
 import com.tecacet.jflat8.RowRecord;
 
-public class CSVBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
+//TODO private impl class
+class CSVBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	private final BeanMapper<T> beanMapper;
 	private final CSVFormat csvFormat;
