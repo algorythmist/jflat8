@@ -17,7 +17,7 @@ public class CSVFlatFileReader<T> extends AbstractFlatFileReader<T> {
 	}
 
 	public CSVFlatFileReader(Class<T> type, String[] header, String[] properties) {
-		super(new CSVBasedCoreFlatFileReader<>(new HeaderBeanMapper<>(type, header, properties), CSVFormat.DEFAULT));
+		super(new CSVBasedCoreFlatFileReader<>(new HeaderBeanMapper<>(type, header, properties), CSVFormat.DEFAULT.withFirstRecordAsHeader()));
 	}
 
 	public CSVFlatFileReader(Class<T> type, Map<String, String> properties) {
