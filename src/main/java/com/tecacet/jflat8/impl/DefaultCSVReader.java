@@ -1,14 +1,14 @@
 package com.tecacet.jflat8.impl;
 
-import org.apache.commons.csv.CSVFormat;
+import com.tecacet.jflat8.CSVFileFormat;
 
 public class DefaultCSVReader extends CSVFlatFileReader<String[]> {
 
 	public DefaultCSVReader() {
-		this(CSVFormat.DEFAULT);
+		this(CSVFileFormat.defaultFormat());
 	}
 	
-	public DefaultCSVReader(CSVFormat csvFormat) {
+	public DefaultCSVReader(CSVFileFormat csvFormat) {
 		super(new ArrayBeanMapper(), csvFormat);
 	}
 

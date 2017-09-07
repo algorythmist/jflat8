@@ -6,24 +6,26 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import com.tecacet.jflat8.BeanMapper;
+import com.tecacet.jflat8.CSVFileFormat;
 import com.tecacet.jflat8.CoreFlatFileReader;
 import com.tecacet.jflat8.FlatFileReaderCallback;
 import com.tecacet.jflat8.RowRecord;
 
-//TODO private impl class
+/*
+ * Parsing implementation class
+ */
 class CSVBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	private final BeanMapper<T> beanMapper;
-	private final CSVFormat csvFormat;
+	private final CSVFileFormat csvFormat;
 
 	private Predicate<T> beanPredicate;
 
-	public CSVBasedCoreFlatFileReader(BeanMapper<T> beanMapper, CSVFormat csvFormat) {
+	public CSVBasedCoreFlatFileReader(BeanMapper<T> beanMapper, CSVFileFormat csvFormat) {
 		super();
 		this.beanMapper = beanMapper;
 		this.csvFormat = csvFormat;
@@ -33,8 +35,13 @@ class CSVBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 	public void read(InputStream is, FlatFileReaderCallback<T> callback) throws IOException {
 		InputStreamReader reader = new InputStreamReader(is);
 		CSVParser parser = csvFormat.parse(reader);
+		int line = 0;
 		for (Iterator<CSVRecord> i = parser.iterator(); i.hasNext();) {
 			CSVRecord csvRecord = i.next();
+			line++;
+			if (line <= csvFormat.getSkipLines()) {
+				continue;
+			}
 			RowRecord rowRecord = new CSVRowRecord(csvRecord);
 			T bean = beanMapper.apply(rowRecord);
 			if (beanPredicate != null && !beanPredicate.test(bean)) {

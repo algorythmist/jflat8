@@ -14,6 +14,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.junit.Test;
 
 import com.tecacet.jflat8.BeanMapper;
+import com.tecacet.jflat8.CSVFileFormat;
 import com.tecacet.jflat8.FlatFileReader;
 import com.tecacet.jflat8.converters.LocalDateConverter;
 import com.tecacet.jflat8.objects.ImmutableQuote;
@@ -32,7 +33,7 @@ public class CSVFlatFileReaderTest {
 		BeanMapper<Movie> beanMapper = new IndexBeanMapper<>(Movie.class,
 				new String[] { "id", "name", "releaseDate", "videoReleaseDate", "imdbURL" });
 
-		FlatFileReader<Movie> flatFileReader = new CSVFlatFileReader<>(beanMapper, csvFormat);
+		FlatFileReader<Movie> flatFileReader = new CSVFlatFileReader<>(beanMapper, new CSVFileFormat(csvFormat));
 		flatFileReader.registerConverter(LocalDate.class, new LocalDateConverter("dd-MMM-yyyy"));
 
 		InputStream is = resourceLoader.loadResource("src/test/data/movies.txt");
@@ -49,14 +50,13 @@ public class CSVFlatFileReaderTest {
 	
 	@Test
 	public void testReadByHeader() throws IOException {
-		// TODO incorporate in framework
-		CSVFormat csvFormat = CSVFormat.DEFAULT.withFirstRecordAsHeader();
+
 		Map<String, String> properties = new HashMap<>();
 		properties.put("Date", "date");
 		properties.put("Open", "open");
 		properties.put("Volume", "volume");
 		BeanMapper<ImmutableQuote> beanMapper = new HeaderBeanMapper<>(ImmutableQuote.class, properties);
-		FlatFileReader<ImmutableQuote> csvReader = new CSVFlatFileReader<>(beanMapper, csvFormat);
+		FlatFileReader<ImmutableQuote> csvReader = new CSVFlatFileReader<>(beanMapper, CSVFileFormat.defaultHeaderFormat());
 		List<ImmutableQuote> quotes = csvReader.readToList("GLD.csv");
 		assertEquals(134, quotes.size());
 		ImmutableQuote quote = quotes.get(0);
