@@ -8,7 +8,8 @@ public interface FlatFileReader<T> extends CoreFlatFileReader<T> {
 
 	List<T> readToList(String resourceName) throws IOException;
 	
+	void read(String resourceName, FlatFileReaderCallback<T> callback) throws IOException;
+	
 	<C> void registerConverter(Class<C> toType, Function<String, C> converter);
 
-	
 }

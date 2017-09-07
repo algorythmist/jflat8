@@ -15,7 +15,7 @@ import com.tecacet.jflat8.FlatFileReaderCallback;
 import com.tecacet.jflat8.converters.LocalDateConverter;
 import com.tecacet.jflat8.util.ResourceLoader;
 
-public abstract class AbstractFlatFileReader<T> implements FlatFileReader<T>{
+public abstract class AbstractFlatFileReader<T> implements FlatFileReader<T> {
 
 	private final ResourceLoader resourceLoader = new ResourceLoader();
 	private final ConverterRegistry converterRegistry = new JoddConverterRegistry();
@@ -30,6 +30,12 @@ public abstract class AbstractFlatFileReader<T> implements FlatFileReader<T>{
 	@Override
 	public void read(InputStream is, FlatFileReaderCallback<T> callback) throws IOException {
 		coreFlatFileReader.read(is, callback);
+	}
+	
+	@Override
+	public void read(String resourceName, FlatFileReaderCallback<T> callback) throws IOException {
+		InputStream is = resourceLoader.loadResource(resourceName);
+		read(is, callback);
 	}
 
 	@Override
