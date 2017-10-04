@@ -2,3 +2,5 @@
 - Abstract file format like CSVFormat
 - Normalize headers before lookup - lowercase, no spaces, no special chars
 - jacoco coverage
+- improve README
+- add samples/tutorials
