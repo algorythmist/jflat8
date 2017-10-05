@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tecacet</groupId>
 	<artifactId>jflat8</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 
 	<name>JFlat 8</name>
 	<description>
@@ -68,6 +68,7 @@
 		<maven-gpg.version>1.6</maven-gpg.version>
 		<maven-javadoc.version>2.10.4</maven-javadoc.version>
 		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+		<nexus-staging.version>1.6.8</nexus-staging.version>
 	</properties>
 
 	<dependencies>
@@ -139,7 +140,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.8</version>
+				<version>${nexus-staging.version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
