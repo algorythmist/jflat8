@@ -69,6 +69,9 @@
 		<maven-javadoc.version>2.10.4</maven-javadoc.version>
 		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 		<nexus-staging.version>1.6.8</nexus-staging.version>
+		<jacoco.version>0.7.9</jacoco.version>
+		<coverage.totalLineRate>0.87</coverage.totalLineRate>
+		<coverage.missedclasses>0</coverage.missedclasses>
 	</properties>
 
 	<dependencies>
@@ -148,6 +151,55 @@
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
+			<!-- Jacoco Coverage report -->
+			<!--
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<configuration>
+					<rules>
+						<rule>
+							<element>BUNDLE</element>
+							<limits>
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>LINE</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>${coverage.totalLineRate}</minimum>
+								</limit>
+								<limit implementation="org.jacoco.report.check.Limit">
+									<counter>CLASS</counter>
+									<value>MISSEDCOUNT</value>
+									<maximum>${coverage.missedclasses}</maximum>
+								</limit>
+							</limits>
+						</rule>
+					</rules>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>verify</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			-->
 		</plugins>
 	</build>
 

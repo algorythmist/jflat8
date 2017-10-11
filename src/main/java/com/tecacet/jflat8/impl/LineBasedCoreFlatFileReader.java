@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 
 import com.tecacet.jflat8.BeanMapper;
 import com.tecacet.jflat8.CoreFlatFileReader;
@@ -20,11 +19,8 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 	private final FlatFileFormat fileFormat;
 
 	private BiPredicate<Long, String> linePredicate;
-	private Predicate<T> beanPredicate;
-	
 
-	public LineBasedCoreFlatFileReader(LineMapper lineMapper, BeanMapper<T> beanMapper,
-			FlatFileFormat fileFormat) {
+	public LineBasedCoreFlatFileReader(LineMapper lineMapper, BeanMapper<T> beanMapper, FlatFileFormat fileFormat) {
 		super();
 		this.lineMapper = lineMapper;
 		this.beanMapper = beanMapper;
@@ -49,9 +45,6 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 			}
 			RowRecord record = lineMapper.apply(lineNumber++, line);
 			T bean = beanMapper.apply(record);
-			if (beanPredicate != null && !beanPredicate.test(bean)) {
-				continue;
-			}
 			callback.accept(record, bean);
 		}
 		isReader.close();
@@ -62,8 +55,4 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 		this.linePredicate = linePredicate;
 	}
 
-	public void setBeanPredicate(Predicate<T> beanPredicate) {
-		this.beanPredicate = beanPredicate;
-	}
-	
 }
