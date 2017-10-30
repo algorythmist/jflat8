@@ -18,43 +18,43 @@ import jodd.bean.BeanUtil;
  */
 public class IndexBeanMapper<T> implements BeanMapper<T> {
 
-	private final String[] properties;
-	private final int[] indexes;
-	private final Supplier<T> beanFactory;
-	private final BeanUtil beanUtil = BeanUtil.declaredForced;
+    private final String[] properties;
+    private final int[] indexes;
+    private final Supplier<T> beanFactory;
+    private final BeanUtil beanUtil = BeanUtil.declaredForced;
 
-	public IndexBeanMapper(Class<T> type, String[] properties) {
-		this(new BeanFactory<>(type), properties);
-	}
-	
-	public IndexBeanMapper(Class<T> type,int[] indexes, String[] properties) {
-		this(new BeanFactory<>(type), indexes,properties);
-	}
+    public IndexBeanMapper(Class<T> type, String[] properties) {
+        this(new BeanFactory<>(type), properties);
+    }
 
-	public IndexBeanMapper(Supplier<T> beanFactory, String[] properties) {
-		this(beanFactory, IntStream.range(0, properties.length).toArray(), properties);
-	}
+    public IndexBeanMapper(Class<T> type, int[] indexes, String[] properties) {
+        this(new BeanFactory<>(type), indexes, properties);
+    }
 
-	public IndexBeanMapper(Supplier<T> beanFactory, int[] indexes, String[] properties) {
-		this.beanFactory = beanFactory;
-		this.properties = properties;
-		this.indexes = indexes;
-	}
+    public IndexBeanMapper(Supplier<T> beanFactory, String[] properties) {
+        this(beanFactory, IntStream.range(0, properties.length).toArray(), properties);
+    }
 
-	@Override
-	public T apply(RowRecord record) {
-		T bean = beanFactory.get();
+    public IndexBeanMapper(Supplier<T> beanFactory, int[] indexes, String[] properties) {
+        this.beanFactory = beanFactory;
+        this.properties = properties;
+        this.indexes = indexes;
+    }
 
-		for (int i = 0; i < properties.length; i++) {
-			String property = properties[i];
-			if (property == null) {
-				continue;
-			}
-			int index = indexes[i];
-			String token = record.get(index);
-			beanUtil.setProperty(bean, property, token);
-		}
-		return bean;
-	}
+    @Override
+    public T apply(RowRecord record) {
+        T bean = beanFactory.get();
+
+        for (int i = 0; i < properties.length; i++) {
+            String property = properties[i];
+            if (property == null) {
+                continue;
+            }
+            int index = indexes[i];
+            String token = record.get(index);
+            beanUtil.setProperty(bean, property, token);
+        }
+        return bean;
+    }
 
 }

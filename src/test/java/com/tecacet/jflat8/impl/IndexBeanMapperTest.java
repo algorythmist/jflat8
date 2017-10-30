@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import com.tecacet.jflat8.BeanMapper;
 import com.tecacet.jflat8.objects.ClassicQuote;
 
@@ -32,6 +35,8 @@ public class IndexBeanMapperTest {
 		assertEquals(34.52, quote.getOpen(), 0.001);
 		assertEquals(36.87, quote.getClose(), 0.001);
 		assertEquals(1001, quote.getVolume());
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		assertEquals("2015-04-09", dateFormat.format(quote.getDate()));
 	}
 
 }

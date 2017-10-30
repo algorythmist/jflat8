@@ -13,7 +13,7 @@ public class CSVLineMapper implements LineMapper{
 	@Override
 	public RowRecord apply(Long lineNumber, String line) {
 		//TODO handle nested quotes and commas within quotes
-		String[] tokens = Arrays.stream(line.split(delimiter)).map(string -> string.replaceAll("^\"|\"$", "")).toArray(String[]::new);
+		String[] tokens = Arrays.stream(line.split(delimiter, -1)).map(string -> string.replaceAll("^\"|\"$", "")).toArray(String[]::new);
 		return new ArrayRowRecord(lineNumber, tokens);
 	}
 
