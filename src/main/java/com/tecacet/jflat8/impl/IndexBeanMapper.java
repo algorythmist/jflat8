@@ -21,7 +21,7 @@ public class IndexBeanMapper<T> implements BeanMapper<T> {
     private final String[] properties;
     private final int[] indexes;
     private final Supplier<T> beanFactory;
-    private final BeanUtil beanUtil = BeanUtil.declaredForced;
+    private final BeanUtil beanUtil = BeanUtil.declaredForcedSilent;
 
     public IndexBeanMapper(Class<T> type, String[] properties) {
         this(new BeanFactory<>(type), properties);
