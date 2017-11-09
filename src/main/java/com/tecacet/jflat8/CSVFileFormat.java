@@ -17,8 +17,9 @@ public class CSVFileFormat implements FileFormat {
 	}
 
 	@Override
-	public void skipLines(int lines) {
+	public CSVFileFormat skipLines(int lines) {
 		this.skipLines = lines;
+		return this;
 	}
 
 	@Override

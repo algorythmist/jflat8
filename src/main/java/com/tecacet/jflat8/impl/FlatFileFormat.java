@@ -10,8 +10,9 @@ public class FlatFileFormat implements FileFormat {
 	private String commentMarker = null;
 	
 	@Override
-	public void skipLines(int lines) {
+	public FlatFileFormat skipLines(int lines) {
 		this.skipLines = lines;
+		return this;
 	}
 
 	@Override

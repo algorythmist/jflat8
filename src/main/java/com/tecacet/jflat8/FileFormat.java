@@ -2,7 +2,7 @@ package com.tecacet.jflat8;
 
 public interface FileFormat {
 
-	void skipLines(int lines);
+	FileFormat skipLines(int lines);
 	
 	int getSkipLines();
 	
@@ -18,8 +18,8 @@ public interface FileFormat {
 	
 	String getCommentMarker();
 	
-	public default void skipHeader() {
-		skipLines(1);
+	public default FileFormat skipHeader() {
+		return skipLines(1);
 	}
 	
 	public default boolean getIgnoreComments() {
