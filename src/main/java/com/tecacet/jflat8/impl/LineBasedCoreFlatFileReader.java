@@ -29,7 +29,7 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	@Override
 	public void read(InputStream inputStream, FlatFileReaderCallback<T> callback) throws IOException {
-		InputStreamReader isReader = new InputStreamReader(inputStream);
+		InputStreamReader isReader = new InputStreamReader(inputStream, "UTF-8");
 		BufferedReader reader = new BufferedReader(isReader);
 
 		String line = null;

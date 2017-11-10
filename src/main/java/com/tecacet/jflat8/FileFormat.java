@@ -6,15 +6,15 @@ public interface FileFormat {
 	
 	int getSkipLines();
 	
-	void skipEmptyLines(boolean v);
+	FileFormat skipEmptyLines(boolean v);
 	
 	boolean getSkipEmptyLines();
 	
-	void trimWhitespace(boolean v);
+	FileFormat trimWhitespace(boolean v);
 	
 	boolean getTrimWhitespace();
 	
-	void setCommentMarker(String marker);
+	FileFormat setCommentMarker(String marker);
 	
 	String getCommentMarker();
 	

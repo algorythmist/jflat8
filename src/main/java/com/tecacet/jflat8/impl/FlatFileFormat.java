@@ -21,8 +21,9 @@ public class FlatFileFormat implements FileFormat {
 	}
 
 	@Override
-	public void skipEmptyLines(boolean v) {
+	public FileFormat skipEmptyLines(boolean v) {
 		this.skipEmptyLines = v;
+		return this;
 	}
 
 	@Override
@@ -31,8 +32,9 @@ public class FlatFileFormat implements FileFormat {
 	}
 
 	@Override
-	public void trimWhitespace(boolean v) {
+	public FileFormat trimWhitespace(boolean v) {
 		trimWhitespace = v;
+		return this;
 	}
 
 	@Override
@@ -41,8 +43,9 @@ public class FlatFileFormat implements FileFormat {
 	}
 
 	@Override
-	public void setCommentMarker(String marker) {
+	public FileFormat setCommentMarker(String marker) {
 		commentMarker = marker;
+		return this;
 	}
 
 	@Override

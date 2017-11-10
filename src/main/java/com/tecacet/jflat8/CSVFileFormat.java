@@ -28,8 +28,9 @@ public class CSVFileFormat implements FileFormat {
 	}
 
 	@Override
-	public void skipEmptyLines(boolean v) {
+	public FileFormat skipEmptyLines(boolean v) {
 		csvFormat = csvFormat.withIgnoreEmptyLines();
+		return this;
 	}
 
 	@Override
@@ -38,8 +39,9 @@ public class CSVFileFormat implements FileFormat {
 	}
 
 	@Override
-	public void trimWhitespace(boolean v) {
+	public FileFormat trimWhitespace(boolean v) {
 		csvFormat = csvFormat.withTrim(v);
+		return this;
 	}
 
 	@Override
@@ -48,8 +50,9 @@ public class CSVFileFormat implements FileFormat {
 	}
 
 	@Override
-	public void setCommentMarker(String marker) {
+	public FileFormat setCommentMarker(String marker) {
 		csvFormat = csvFormat.withCommentMarker(marker.charAt(0));
+		return this;
 	}
 
 	@Override
