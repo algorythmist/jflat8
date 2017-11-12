@@ -1,6 +1,8 @@
 package com.tecacet.jflat8.impl;
 
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.tecacet.jflat8.RowRecord;
 
@@ -11,6 +13,8 @@ import com.tecacet.jflat8.RowRecord;
  *
  */
 public class CSVRowRecord implements RowRecord {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final CSVRecord csvRecord;
 
@@ -29,6 +33,7 @@ public class CSVRowRecord implements RowRecord {
         if (csvRecord.isSet(name)) {
             return csvRecord.get(name);
         }
+        logger.warn("There is no header mapping for column '{}'", name);
         return null;
     }
 
