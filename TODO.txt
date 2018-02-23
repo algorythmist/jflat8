@@ -1,7 +1,7 @@
 - register type converters by property
-- Map properties by non-consequitive indexes in file
+- Map properties by non-consecutive indexes in file
 - Abstract file format like CSVFormat
-- Normalize headers before lookup - lowercase, no spaces, no special chars
+- Normalize headers before lookup - lower-case, no spaces, no special chars
 - jacoco coverage
 - improve README
 - add samples/tutorials
