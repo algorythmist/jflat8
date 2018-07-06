@@ -41,6 +41,11 @@ public abstract class AbstractFlatFileReader<T> implements FlatFileReader<T> {
 	@Override
 	public List<T> readToList(String resourceName) throws IOException {
 		InputStream is = resourceLoader.loadResource(resourceName);
+		return readToList(is);
+	}
+	
+	@Override
+	public List<T> readToList(InputStream is) throws IOException {
 		return coreFlatFileReader.readToList(is);
 	}
 	
