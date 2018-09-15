@@ -19,6 +19,7 @@ public class CSVWriter<T> {
     private final BeanUtil beanUtil = BeanUtil.declaredForcedSilent;
     private final String[] header;
     private final String[] properties;
+    private final CSVFormat csvFormat;
 
     // TODO allow class inheritance in conversion
     private Map<Class<?>, Function<? extends Object, String>> converters = new HashMap<Class<?>, Function<?, String>>();
@@ -28,28 +29,56 @@ public class CSVWriter<T> {
     }
 
     public CSVWriter(String[] header, String[] properties) {
-        super();
-        this.properties = properties;
-        this.header = header;
+        this(header, properties,  CSVFormat.DEFAULT);
     }
 
+    public CSVWriter(String[] header, String[] properties, CSVFormat csvFormat) {
+        super();
+        this.header = header;
+        this.properties = properties;
+        this.csvFormat = csvFormat;
+    }
+
+    /**
+     * Write a bean to an open Appendable. The user is responsible for closing the Appendable.
+     * 
+     * @param appendable
+     * @param bean
+     * @throws IOException
+     */
+    public void write(Appendable appendable, T bean) throws IOException {
+        CSVPrinter csvPrinter = new CSVPrinter(appendable, csvFormat);
+        String[] tokens = tokenize(bean);
+        csvPrinter.printRecord(tokens);
+    }
+
+    /**
+     * Write a collection to an open Appendable. The user is responsible for closing the Appendable.
+     * 
+     * @param appendable
+     * @param bean
+     * @throws IOException
+     */
     public void write(Appendable appendable, Collection<T> beans) throws IOException {
-        CSVPrinter csvPrinter = new CSVPrinter(appendable, CSVFormat.DEFAULT);
-        if (header != null) {
-            csvPrinter.printRecord(header);
-        }
+        CSVPrinter csvPrinter = new CSVPrinter(appendable, csvFormat);
         for (T bean : beans) {
             String[] tokens = tokenize(bean);
             csvPrinter.printRecord(tokens);
         }
-        csvPrinter.close();
+    }
+
+    private void writeHeader(Appendable appendable) throws IOException {
+        if (header != null) {
+            CSVPrinter csvPrinter = new CSVPrinter(appendable, csvFormat);
+            csvPrinter.printRecord(header);
+        }
     }
 
     public void writeToFile(String filename, Collection<T> beans) throws IOException {
         FileWriter fw = new FileWriter(filename);
+        writeHeader(fw);
         write(fw, beans);
         fw.close();
-
     }
 
     public <C> void registerConverter(Class<C> type, Function<C, String> converter) {
