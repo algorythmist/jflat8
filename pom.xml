@@ -59,14 +59,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<commmons-csv.version>1.5</commmons-csv.version>
+		<commmons-csv.version>1.6</commmons-csv.version>
 		<jodd.version>3.8.6</jodd.version>
-		<objenesis.version>2.5.1</objenesis.version>
+		<objenesis.version>3.0.1</objenesis.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<junit.version>4.12</junit.version>
 		<maven-source.version>3.0.1</maven-source.version>
 		<maven-gpg.version>1.6</maven-gpg.version>
-		<maven-javadoc.version>2.10.4</maven-javadoc.version>
+		<maven-javadoc.version>3.0.1</maven-javadoc.version>
 		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 		<nexus-staging.version>1.6.8</nexus-staging.version>
 		<jacoco.version>0.7.9</jacoco.version>
