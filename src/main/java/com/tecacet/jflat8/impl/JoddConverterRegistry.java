@@ -10,6 +10,6 @@ public class JoddConverterRegistry implements ConverterRegistry {
 	
 	@Override
 	public <C> void registerConverter(Class<C> toType, Function<String, C> converter) {
-		TypeConverterManager.register(toType, Converters.fromFunction(converter));
+		TypeConverterManager.get().register(toType, Converters.fromFunction(converter));
 	}
 }

@@ -1,5 +1,6 @@
 package com.tecacet.jflat8.objects;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 public class ClassicQuote {
 
-	private Date date;
+	private LocalDate date;
 	private double open;
 	private double close;
 	private long volume;
@@ -19,7 +20,7 @@ public class ClassicQuote {
 
 	}
 
-	public ClassicQuote(Date date, double open, double close, long volume) {
+	public ClassicQuote(LocalDate date, double open, double close, long volume) {
 		super();
 		this.date = date;
 		this.open = open;
@@ -27,11 +28,11 @@ public class ClassicQuote {
 		this.volume = volume;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
