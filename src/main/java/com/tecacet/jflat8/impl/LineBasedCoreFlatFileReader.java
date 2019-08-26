@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.function.BiPredicate;
 
 import com.tecacet.jflat8.BeanMapper;
@@ -29,10 +30,10 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 
 	@Override
 	public void read(InputStream inputStream, FlatFileReaderCallback<T> callback) throws IOException {
-		InputStreamReader isReader = new InputStreamReader(inputStream, "UTF-8");
+		InputStreamReader isReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 		BufferedReader reader = new BufferedReader(isReader);
 
-		String line = null;
+		String line;
 		long lineNumber = 0;
 
 		while ((line = reader.readLine()) != null) {
@@ -51,8 +52,9 @@ public class LineBasedCoreFlatFileReader<T> implements CoreFlatFileReader<T> {
 		reader.close();
 	}
 
-	public void setLinePredicate(BiPredicate<Long, String> linePredicate) {
-		this.linePredicate = linePredicate;
+	public LineBasedCoreFlatFileReader<T> withSkipLineFilter(BiPredicate<Long, String> filter) {
+		this.linePredicate = filter;
+		return this;
 	}
 
 }

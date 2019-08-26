@@ -17,9 +17,9 @@ import com.tecacet.jflat8.util.ResourceLoader;
 
 public abstract class AbstractFlatFileReader<T> implements FlatFileReader<T> {
 
-	private final ResourceLoader resourceLoader = new ResourceLoader();
-	private final ConverterRegistry converterRegistry = new JoddConverterRegistry();
-	private final CoreFlatFileReader<T> coreFlatFileReader;
+	protected final ResourceLoader resourceLoader = new ResourceLoader();
+	protected final ConverterRegistry converterRegistry = new JoddConverterRegistry();
+	protected final CoreFlatFileReader<T> coreFlatFileReader;
 	
 	public AbstractFlatFileReader(CoreFlatFileReader<T> coreFlatFileReader) {
 		super();
