@@ -33,7 +33,6 @@ public class FlatFileReaderCSVTest {
 		assertEquals(134, quotes.size());
 	}
 
-
 	@Test
 	public void readAsStream() throws IOException {
 		FlatFileReader<ImmutableQuote> csvReader = CSVUtils.createWithIndexMapping(ImmutableQuote.class,
@@ -61,7 +60,7 @@ public class FlatFileReaderCSVTest {
 	}
 
 	@Test
-	public void witHHeaderMapping() throws IOException {
+	public void withHeaderMapping() throws IOException {
 		Map<String, String> properties = new HashMap<>();
 
 		properties.put("Date", "date");
