@@ -56,7 +56,7 @@ public class CSVWriter<T> {
      * Write a collection to an open Appendable. The user is responsible for closing the Appendable.
      * 
      * @param appendable
-     * @param bean
+     * @param beans
      * @throws IOException
      */
     public void write(Appendable appendable, Collection<T> beans) throws IOException {
